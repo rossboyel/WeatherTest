@@ -1,6 +1,5 @@
 package com.ross.weatherapidemo.API;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +9,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 @Service
-public class WeatherAPIClient {
+public class APIClient {
 
     @Value("${api.key}")
     private String apiKey;
@@ -21,7 +20,7 @@ public class WeatherAPIClient {
 
 
 
-    public WeatherAPIClient(Requests requests) {
+    public APIClient(Requests requests) {
         this.requests = requests;
     }
 

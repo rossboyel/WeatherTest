@@ -1,6 +1,6 @@
 package com.ross.weatherapidemo;
 
-import com.ross.weatherapidemo.API.WeatherAPIClient;
+import com.ross.weatherapidemo.API.APIClient;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -13,10 +13,10 @@ import java.io.InputStreamReader;
 @SpringBootApplication
 public class WeatherApiDemoApplication {
 
-    private final WeatherAPIClient weatherAPIClient;
+    private final APIClient weatherAPIClient;
 
     @Autowired
-    public WeatherApiDemoApplication(WeatherAPIClient weatherAPIClient) {
+    public WeatherApiDemoApplication(APIClient weatherAPIClient) {
         this.weatherAPIClient = weatherAPIClient;
     }
 
