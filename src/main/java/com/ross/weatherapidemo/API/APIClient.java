@@ -1,5 +1,7 @@
-package com.ross.weatherapidemo.API;
+package com.ross.weatherapidemo.api;
 
+
+import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -16,21 +18,13 @@ public class APIClient {
 
     private final String basePath = "https://api.weatherapi.com/v1/";
 
-    private Requests requests;
-
-
-
-    public APIClient(Requests requests) {
-        this.requests = requests;
-    }
-
-    public void getCurrentWeather(String location) {
+    public String sendRequest(String endpoint, String location) {
         System.out.println(getApiKey());
         System.out.println(apiKey);
 
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(getBasePath() + requests.getCurrentWeather() + getApiKey() + "q=" + location))
+                .uri(URI.create(getBasePath() + endpoint + "key=" + getApiKey() + "&q=" + location))
                 .GET()
                 .build();
         System.out.println(request);
@@ -43,16 +37,22 @@ public class APIClient {
             System.out.println("Response Status Code: " + statusCode);
             System.out.println("Response Body: " + responseBody);
 
+            if(statusCode == HttpStatus.SC_OK) {
+                return responseBody;
+            } else {
+                return "Error: " + statusCode;
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            return "Error, check trace";
         }
-    }
-
-    public String getApiKey() {
-        return "key=" + apiKey + "&";
     }
 
     public String getBasePath() {
         return basePath;
+    }
+
+    public String getApiKey() {
+        return apiKey;
     }
 }

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Endpoint Selection Form</title>
+</head>
+<body>
+<form method="post" action="/process-form">
+    <label for="endpoint">Select an Endpoint:</label>
+    <select id="endpoint" name="endpoint">
+        <option value="current.json?">Current Weather</option>
+        <option value="forecast.json?">Forecast</option>
+        <option value="history.json?">History</option>
+        <option value="marine.json?">Marine</option>
+        <option value="future.json?">Future</option>
+        <option value="timezone.json?">Time Zone</option>
+        <option value="sports.json?">Sports</option>
+    </select>
+    <br><br>
+    <label for="location">Enter location: </label>
+    <input type ="text" id="location" name="location">
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>
