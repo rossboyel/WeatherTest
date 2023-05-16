@@ -13,6 +13,10 @@ target/
 .springBeans
 .sts4-cache
 
+# Local configuration file (sdk path, etc)
+local.properties
+.properties
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
