@@ -1,25 +1,111 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Endpoint Selection Form</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Weather App</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function submitForm(event) {
+            event.preventDefault(); // Prevent form submission
+
+            var form = event.target; // Get the form element
+
+            // Create an AJAX request
+            $.ajax({
+                type: form.method,
+                url: form.action,
+                data: $(form).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response)
+                    // Handle the response data
+                    if (response) {
+
+
+                        // Access the weather data properties
+
+                        var temperatureC = response.temp_c;
+                        var temperatureF = response.temp_f;
+                        var windMPH = response.wind_mph;
+                        var windDegree = response.wind_degree;
+                        var windDirection = response.wind_dir;
+                        var pressure = response.pressure_mb;
+                        var humidity = response.humidity;
+                        var cloud = response.cloud;
+                        var feelsC = response.feelslike_c;
+                        var feelsF = response.feelslike_f;
+                        var visibilityKM = response.vis_km;
+                        var VisibilityM = response.vis_miles;
+                        var uv = response.uv;
+                        var gustMPH = response.gust_mph;
+                        var GustKPH = response.gust_kph
+                        ;
+
+                        // Update the HTML elements with the weather data
+                        $('#temperatureC').text(temperatureC);
+                        $('#temperatureF').text(temperatureF);
+                        $('#windMPH').text(windMPH);
+                        $('#windDegree').text(windDegree);
+                        $('#windDirection').text(windDirection);
+                        $('#pressure').text(pressure);
+                        $('#humidity').text(humidity);
+                        $('#cloud').text(cloud);
+                        $('#feelsC').text(feelsC);
+                        $('#feelsF').text(feelsF);
+                        $('#visibilityKM').text(visibilityKM);
+                        $('#VisibilityM').text(VisibilityM);
+                        $('#uv').text(uv);
+                        $('#gustMPH').text(gustMPH);
+                        $('#GustKPH').text(GustKPH);
+                    } else {
+                        console.error('Invalid response received.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX request failed. Error:', error);
+                }
+            });
+        }
+    </script>
 </head>
 <body>
-<form method="post" action="/process-form">
-    <label for="endpoint">Select an Endpoint:</label>
-    <select id="endpoint" name="endpoint">
-        <option value="current.json?">Current Weather</option>
-        <option value="forecast.json?">Forecast</option>
-        <option value="history.json?">History</option>
-        <option value="marine.json?">Marine</option>
-        <option value="future.json?">Future</option>
-        <option value="timezone.json?">Time Zone</option>
-        <option value="sports.json?">Sports</option>
-    </select>
-    <br><br>
-    <label for="location">Enter location: </label>
-    <input type ="text" id="location" name="location">
-    <br><br>
-    <input type="submit" value="Submit">
-</form>
+<div class="form.center">
+    <form method="post" action="/process-form" onsubmit="submitForm(event)">
+        <label for="endpoint">Type of inquiry:</label>
+        <select id="endpoint" name="endpoint">
+            <option value="current.json?">Current Weather</option>
+            <option value="forecast.json?">Forecast</option>
+            <option value="history.json?">History</option>
+            <option value="marine.json?">Marine</option>
+            <option value="future.json?">Future</option>
+            <option value="timezone.json?">Time Zone</option>
+            <option value="sports.json?">Sports</option>
+        </select>
+        <br><br>
+        <label for="location">Enter location:</label>
+        <input type="text" id="location" name="location">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<div id="weatherData">
+    <h2>Weather Data</h2>
+    <p>Temperature C: <span id="temperatureC"></span></p>
+    <p>Temperature F: <span id="temperatureF"></span></p>
+    <p>Wind MPH: <span id="windMPH"></span></p>
+    <p>Wind Degree: <span id="windDegree"></span></p>
+    <p>Wind Direction: <span id="windDirection"></span></p>
+    <p>Pressure: <span id="pressure"></span></p>
+    <p>Humidity: <span id="humidity"></span></p>
+    <p>Cloud: <span id="cloud"></span></p>
+    <p>Feels(C): <span id="feelsC"></span></p>
+    <p>Feels(F): <span id="feelsF"></span></p>
+    <p>Visibility(KM): <span id="visibilityKM"></span></p>
+    <p>Visibility(M): <span id="VisibilityM"></span></p>
+    <p>UV: <span id="uv"></span></p>
+    <p>Wind Gust(MPH): <span id="gustMPH"></span></p>
+    <p>Wind Gust(KPH): <span id="GustKPH"></span></p>
+</div>
 </body>
 </html>

@@ -30,14 +30,14 @@ public class WeatherController {
 
     @PostMapping("/process-form")
     @ResponseBody
-    public ResponseEntity<String> processForm(@RequestParam("endpoint") String selectedEndpoint,
+    public ResponseEntity<CurrentWeather> processForm(@RequestParam("endpoint") String selectedEndpoint,
                                               @RequestParam("location") String location) {
         String jsonResponse = apiClient.sendRequest(selectedEndpoint, location);
 
         CurrentWeather currentWeather = jsonParser.parseCurrentWeather(jsonResponse);
         System.out.println(currentWeather.getHumidity());
         if (currentWeather != null) {
-            return ResponseEntity.ok(jsonResponse);
+            return ResponseEntity.ok(currentWeather);
         } else {
             return ResponseEntity.notFound().build();
         }

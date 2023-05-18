@@ -19,17 +19,24 @@ public class JsonParser {
     }
 
 
+    /**
+     * Get the current weather from JSON. Creates a CurrentWeather object and parses the data from the JSON into
+     * the object.
+     * @param json the returned JSON file from the API
+     * @return A CurrentWeather object
+     */
     public CurrentWeather parseCurrentWeather(String json) {
+        CurrentWeather currentWeather = new CurrentWeather();
         try {
             JsonNode rootNode = objectMapper.readTree(json);
             JsonNode currentWeatherNode = rootNode.get("current");
 
-            CurrentWeather currentWeather = objectMapper.treeToValue(currentWeatherNode, CurrentWeather.class);
+            currentWeather = objectMapper.treeToValue(currentWeatherNode, CurrentWeather.class);
             return currentWeather;
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return currentWeather;
     }
 }
